@@ -1,4 +1,4 @@
-# Estrud
+Estrud - Software para Análise e Dimensionamento de Estruturas
 
 [![Build Status](https://travis-ci.org/Estrud/estrud.svg?branch=master)](https://travis-ci.org/Estrud/estrud)
 [![Updates](https://pyup.io/repos/github/Estrud/estrud/shield.svg)](https://pyup.io/repos/github/Estrud/estrud/)
