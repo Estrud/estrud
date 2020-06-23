@@ -9,7 +9,6 @@ pytest-cov = "*"
 codecov = "*"
 
 [packages]
-django = "*"
 gunicorn = "*"
 pytest-django = "*"
 python-decouple = "*"
@@ -19,6 +18,7 @@ django-s3-folder-storage = "*"
 collectfast = "*"
 django-debug-toolbar = "*"
 sentry-sdk = "*"
+django = "*"
 
 [requires]
 python_version = "3.8"
