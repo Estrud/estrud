@@ -33,7 +33,9 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
-AUTH_USER_MODEL = 'base.User'
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'frontpage'
 
 # Application definition
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'collectfast',
     'django.contrib.staticfiles',
     'estrud.base',
+    'estrud.dashboard',
     'estrud.vigas'
 ]
 

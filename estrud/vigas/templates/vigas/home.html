@@ -1,0 +1,159 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+<title>{% block title %}Estrud 1.12 - Home{% endblock %}</title>
+
+{% block content %}
+<div class="columns">
+        <div class="column">
+            <form method="POST"> {% csrf_token %}
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <div class="field">
+                            <label class="label mb-0">{{ form.b.label_tag }}</label>
+                            <div class="control">
+                                {{ form.b }}
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label mb-0">{{ form.h.label_tag }}</label>
+                            <div class="control">
+                                {{ form.h }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <div class="field">
+                            <label class="label mb-0">{{ form.d.label_tag }}</label>
+                            <div class="control">
+                                {{ form.d }}
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label mb-0">{{ form.d_linha.label_tag }}</label>
+                            <div class="control">
+                                {{ form.d_linha }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <div class="field">
+                            <label class="label mb-0">{{ form.concreto.label_tag }}</label>
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    {{ form.concreto }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label mb-0">{{ form.aco.label_tag }}</label>
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    {{ form.aco }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns"> 
+                    <div class="column">
+                        <div class="field">
+                            <label class="label mb-0">{{ form.esforco.label_tag }}</label>
+                            <div class="control">
+                                {{ form.esforco }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label mb-0">{{ form.gama_f.label_tag }}</label>
+                            <div class="control">
+                                {{ form.gama_f }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label mb-0">{{ form.limites.label_tag }}</label>
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    {{ form.limites }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+               
+                  <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link" type="submit"> <strong>Dimensionar</strong></button>
+                    </div>
+                    <div class="control">
+                        <input class="button" type="submit" value="Salvar">
+                    </div>
+                  </div>
+            </form>
+                    <div class="tags is-normal mt-2">
+                        <span class="tag">Md: {{ md }} kN.m</span>
+                        <span class="tag">fcd: {{ fcd }} MPa</span>
+                        <span class="tag">fyd: {{ fyd }} MPa</span>
+                        <span class="tag">Domínio: {{ dominio }}</span>
+                        <span class="tag is-success is-light">LN: {{ x }} cm</span>
+                        <span class="tag">As: {{ area_aco }} cm²</span>
+                        <span class="tag is-success is-light">Rcd: {{ rcd }} kN</span>
+                        <span class="tag is-link is-light">Rsd: {{ rsd }} kN</span>
+                        <span class="tag">z: {{ z }} cm</span>
+                      </div>
+                      <div class="mt-2">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <article class="message is-{{ message.tags }}">
+                                    <div class="message-body">
+                                        {{ message }}
+                                    </div>
+                                </article>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+        </div>                   
+
+        <div class="column">
+            <nav class="panel">
+                <p class="panel-heading">
+                  Memorial de Cálculo
+                </p>
+
+                {% if memorial %}               
+                <div id="memorial">
+                    <p>1. Resistência de cálculo à compressão do concreto :</p>
+                        $$fcd=\frac{ fck }{ γc }=\frac{ {{concreto}} }{ γc }={{fcd}}$$
+                    <p>2. Momento :</p>
+                        $$Md = Mk*γf = {{esforco}} * {{gama_f}} = {{md}}$$
+                    <p>3. Cálculo do α e λ :</p>
+                        $$ α={{alpha}} $$
+                        $$ λ={{lambida}} $$
+                    <p>4. Cálculo da altura da linha neutra :</p>
+                        $$ x=\frac{ {{d}} }{ {{lambida}} } * \left( 1-\sqrt{1-\frac{ 2 * {{md}} *10^2 }
+                        { {{alpha}} * {{fcd2}} * {{b}} * ({{d}})^2 }} \right) $$
+                        $$ x = {{x}} cm$$
+                    <p>5. Cálculo da área de aço em cm² :</p>
+                        $$ As =\frac{ {{md}} *10^2 }{ {{fyd2}} * \left( {{d}} - \frac{ {{ lambida }} }{ 2 } * {{ x }} \right) }$$
+                        $$ As = {{ area_aco }} $$
+                </div>
+                {% endif %}
+
+                <!--
+                    <div>$$x=\frac{-b+\sqrt{b^2-4ac}}{2a}$$</div>                       
+                    <div><strong>$$\left[10\right]\huge$$</strong></div>
+                -->
+                
+            </nav>    
+            
+             
+        </div>
+        <div class="column is-two-fifths">
+            {{canvas| safe}} 
+        </div>
+<div>
+  
+{% endblock content %}

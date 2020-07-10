@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="title">Dashboard</h1>
+
+    <div class="columns is-multiline">
+        <div class="column is-12">
+            <h2 class="subtitle">Últimas atividades</h2>
+        </div>
+        {% for bookmark in bookmarks %}
+            <div class="column is-3">
+                <div class="card card-link">
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4">{{ bookmark.title }}</p>
+                            </div> 
+                        </div>
+
+                        <div class="content">
+                            {{ bookmark.description }}
+                        </div>
+                    </div>
+
+                    <footer class="card-footer">
+                        <a href="{{ bookmark.url }}" class="card-footer-item" target="_blank"> Acessar </a>
+                        <a href="#" class="card-footer-item"> Editar </a>
+                    </footer>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}
+
