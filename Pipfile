@@ -18,7 +18,10 @@ django-s3-folder-storage = "*"
 collectfast = "*"
 django-debug-toolbar = "*"
 sentry-sdk = "*"
-django = "*"
+django-bulma = "*"
+numpy = "*"
+bokeh = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3.8"
